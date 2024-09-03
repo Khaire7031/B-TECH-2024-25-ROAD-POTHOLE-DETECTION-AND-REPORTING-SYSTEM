@@ -5,15 +5,17 @@ import Dashboard from './components/admin/Dashboard';
 import Login from './services/login';
 import HomePage from './components/Home/HomePage';
 import RegisterPage from './services/Register';
+import Navbar from './components/Home/Navbar';
 
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
-
+        {/* <Route path="/" element={<Navbar />} /> */}
         {/* Public Route */}
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={< RegisterPage />} />
 
