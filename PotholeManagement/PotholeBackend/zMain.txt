@@ -1,0 +1,14 @@
+s3 bucket for images storing
+https://us-east-1.console.aws.amazon.com/iam/home?region=ap-southeast-2#/users
+
+Secret access key AWS :  W+381rhYrscVrSAOF7woD+HFDFT0wyIes+OPMCVK
+Access key : AKIA2UC3DTUN7KPVM3W5
+
+
+// Hotel
+https://us-east-1.console.aws.amazon.com/iam/home?region=ap-southeast-2#/users/details/Hotel_User?section=security_credentials
+
+
+
+last time open
+https://ap-southeast-2.console.aws.amazon.com/s3/buckets/hotelphoto?region=ap-southeast-2&bucketType=general&tab=properties
