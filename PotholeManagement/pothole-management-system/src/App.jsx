@@ -6,6 +6,10 @@ import Login from './services/login';
 import HomePage from './components/Home/HomePage';
 import RegisterPage from './services/Register';
 import Navbar from './components/Home/Navbar';
+import Footer from './components/Home/Footer';
+import Map from './components/Map/map';
+import PotholeReport from './components/common/PotholeReport';
+import MapComponent from './components/Map/MapComponent';
 
 
 function App() {
@@ -18,6 +22,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={< RegisterPage />} />
+        <Route path="/map" element={<MapComponent />} />
+        <Route path="/report-pothole" element={< PotholeReport />} />
 
 
         {/* Protected Route */}
@@ -26,6 +32,7 @@ function App() {
         <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
 
       </Routes>
+      <Footer />
     </Router>
   );
 }

@@ -22,7 +22,6 @@ function LoginPage() {
         console.log(email);
         console.log(password);
 
-
         try {
             const response = await ApiService.loginUser({ email, password });
             if (response.statusCode === 200) {
@@ -38,8 +37,8 @@ function LoginPage() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
-            <div className="max-w-md w-full bg-white shadow-md rounded-lg p-8">
+        <div className="flex items-center justify-center bg-gray-100 ">
+            <div className="max-w-md w-full bg-white mt-10 mb-10 shadow-md rounded-lg p-8">
                 <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
                 {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
                 <form onSubmit={handleSubmit}>

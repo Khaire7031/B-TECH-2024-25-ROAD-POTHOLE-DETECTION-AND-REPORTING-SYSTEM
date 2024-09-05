@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+const User = {
+    "name": "Pranav"
+}
+
 export default class ApiService {
     static BASE_URL = 'http://localhost:3000';
+
 
     static getHeader() {
         const token = localStorage.getItem('token');
@@ -12,12 +17,7 @@ export default class ApiService {
     }
 
     /** AUTH */
-
-    /**
-     * Registers a new user.
-     * @param {Object} registration - The registration details.
-     * @returns {Promise<Object>} - The response data.
-     */
+    /** Registers a new user.     */
     static async registerUser(registration) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/register`, registration);
@@ -28,19 +28,19 @@ export default class ApiService {
         }
     }
 
-    /**
-     * Logs in a registered user.
-     * @param {Object} loginDetails - The login details.
-     * @returns {Promise<Object>} - The response data.
-     */
+    /** Logs in a registered user  */
     static async loginUser(loginDetails) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails);
-            return response.data; // Ensure this matches your backend's response structure
+            return response.data;
         } catch (error) {
             console.error('Error logging in user:', error.response?.data || error.message);
             throw error;
         }
+    }
+
+    static async getCurrentUser() {
+        
     }
 
 }
