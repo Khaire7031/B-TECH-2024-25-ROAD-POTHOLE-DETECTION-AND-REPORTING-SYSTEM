@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pdk.pothole.Dto.Response;
+import com.pdk.pothole.Entity.Pothole;
+import com.pdk.pothole.Service.PotholeService;
 import com.pdk.pothole.Service.UserService;
 
 import org.springframework.security.core.Authentication;
@@ -20,8 +24,12 @@ import org.springframework.security.core.Authentication;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PotholeService potholeService;
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -30,8 +38,8 @@ public class UserController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @GetMapping("/get-by-id/{userId}")
-    public ResponseEntity<Response> getUserById(@PathVariable("userId") String userId) {
+    @PostMapping("/")
+    public ResponseEntity<Response> addPothole(@RequestBody Pothole pothole) {
         Response response = null;
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
