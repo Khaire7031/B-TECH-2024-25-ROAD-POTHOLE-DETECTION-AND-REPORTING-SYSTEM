@@ -20,12 +20,10 @@ public class Response {
 
     private String expirationTime;
 
-    private String bookingConfirmationCode;
-
     private User user;
 
     private List<UserDto> userList;
 
-    private Pothole pothole;
+    private String opt;
 
 }

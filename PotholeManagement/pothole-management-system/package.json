@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite preview --port 3000"
   },
   "dependencies": {
     "@mui/material": "^6.0.2",
@@ -15,6 +16,7 @@
     "axios": "^1.7.5",
     "flowbite": "^2.5.1",
     "flowbite-react": "^0.10.1",
+    "framer-motion": "^11.5.4",
     "leaflet": "^1.9.4",
     "leaflet-control-geocoder": "^2.4.0",
     "leaflet-routing-machine": "^3.2.12",

@@ -47,16 +47,3 @@ public class Pothole {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
-
-enum Severity {
-    LOW,
-    MODERATE,
-    HIGH
-}
-
-enum Status {
-    REPORTED,
-    UNDER_REVIEW,
-    FIXED,
-    IGNORED
-}

@@ -5,7 +5,7 @@ import L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-control-geocoder";
-import cities from "./data"; // Import cities from data.jsx
+import cities from "./data"; 
 
 const Routing = ({ startCity, endCity }) => {
     const map = useMap();
@@ -99,7 +99,7 @@ const MapComponent = () => {
                     Find Route
                 </button>
             </div>
-
+        
             {/* Map Container */}
             {mapVisible && (
                 <div className="w-full z-40 flex justify-center mt-4 p-2">

@@ -1,9 +1,5 @@
 import axios from 'axios';
 
-const User = {
-    "name": "Pranav"
-}
-
 export default class ApiService {
     static BASE_URL = 'http://localhost:3000';
 
@@ -39,8 +35,26 @@ export default class ApiService {
         }
     }
 
-    static async getCurrentUser() {
-        
+
+    static async sendOtp(email) {
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/get_otp`, email);
+            // const response = await axios.post(`${this.BASE_URL}/auth/get_otp`, { email });
+            return response.data;
+        } catch (error) {
+            console.error('Error in sending OTP:', error.response?.data || error.message);
+            throw error;
+        }
     }
 
+    static async verifyOtp(email, otp) {
+        try {
+            // const response = await axios.post(`${this.BASE_URL}/auth/verify_otp`, { email, otp });
+            const response = await axios.post(`${this.BASE_URL}/auth/verify_otp`, { email, otp });
+            return response.data;
+        } catch (error) {
+            console.error('Error in verifying OTP:', error.response?.data || error.message);
+            throw error;
+        }
+    }
 }

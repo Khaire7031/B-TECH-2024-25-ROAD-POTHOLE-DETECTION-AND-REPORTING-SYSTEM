@@ -37,7 +37,7 @@ function RegisterPage() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
             <div className="max-w-md w-full bg-white shadow-md rounded-lg p-8">
                 <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
                 {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
@@ -94,20 +94,6 @@ function RegisterPage() {
                             required
                         />
                     </div>
-                    <div className="mb-6">
-                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="role">
-                            Role:
-                        </label>
-                        <select
-                            id="role"
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                            <option value="USER">User</option>
-                            <option value="ADMIN">Admin</option>
-                        </select>
-                    </div>
                     <button
                         type="submit"
                         className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -115,6 +101,7 @@ function RegisterPage() {
                         Register
                     </button>
                 </form>
+
                 <p className="mt-4 text-center text-gray-600">
                     Already have an account?{' '}
                     <a href="/login" className="text-blue-500 hover:underline">

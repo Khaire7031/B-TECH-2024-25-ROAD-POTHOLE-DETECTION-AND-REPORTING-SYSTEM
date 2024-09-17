@@ -1,20 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import mapImage from '../../assets/Map.png';
 import logoutImage from '../../assets/Logout.png'; // Import your logout image here
 import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [admin, setAdmin] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const role = localStorage.getItem("role");
+        setIsLogin(role != null);
+        setAdmin(role === "ADMIN");
+    }, []);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
     const handleLogout = () => {
-        // Implement your logout logic here
-        console.log('Logged out');
+        if (isLogin) {
+            localStorage.removeItem("role");
+            localStorage.removeItem("token");
+            setAdmin(false);
+            setIsLogin(false);
+            console.log('Logged out');
+            alert("Logged Out Successfully!");
+
+            // Navigate to the home page
+            navigate('/', { replace: true });
+
+            // Add a delay before refreshing the page
+            setTimeout(() => {
+                window.location.reload();
+            }, 500); // 500 milliseconds delay
+        } else {
+            navigate('/login', { replace: true });
+        }
     };
+
 
     return (
         <nav className="bg-white border-b-2 border-gray-200 dark:bg-gray-900 sticky top-0 z-50">
@@ -39,33 +64,26 @@ export default function Navbar() {
                 <div className={`${isOpen ? 'block' : 'hidden'} w-full md:block md:w-auto`} id="navbar-default">
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
-                            <a href="#" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Register</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
+                            <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
                         </li>
                         <li>
                             <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
                         </li>
                         <li>
-                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin</a>
+                            <a href="/map/search" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Map</a>
                         </li>
+                        {admin && (
+
+                            <li>
+                                <a href="/admin" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin</a>
+                            </li>
+                        )}
                         <li>
-                            <button onClick={() => navigate("/login")} className="flex items-center space-x-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center space-x-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">
                                 <img src={logoutImage} className="h-6 w-6" alt="Logout Icon" />
-                                <span>Login</span>
-                            </button>
-                        </li>
-                        <li>
-                            <button onClick={handleLogout} className="flex items-center space-x-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">
-                                <img src={logoutImage} className="h-6 w-6" alt="Logout Icon" />
-                                <span>Logout</span>
+                                <span>{isLogin ? 'Logout' : 'Login'}</span>
                             </button>
                         </li>
                     </ul>

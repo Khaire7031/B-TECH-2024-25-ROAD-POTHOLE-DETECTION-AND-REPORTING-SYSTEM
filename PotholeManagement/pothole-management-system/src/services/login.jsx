@@ -1,13 +1,18 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import ApiService from "./ApiService";
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import ApiService from './ApiService';
+import OtpDialog from './OtpDialog';
 
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [showOtpDialog, setShowOtpDialog] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+
+    const [token, setToken] = useState('');
+    const [role, setRole] = useState('');
 
     const from = location.state?.from?.pathname || '/home';
 
@@ -19,16 +24,16 @@ function LoginPage() {
             setTimeout(() => setError(''), 5000);
             return;
         }
-        console.log(email);
-        console.log(password);
 
         try {
             const response = await ApiService.loginUser({ email, password });
+            console.log("Responce in Login 1 : ", response, response === null);
             if (response.statusCode === 200) {
-                console.log(response)
-                localStorage.setItem('token', response.token);
-                localStorage.setItem('role', response.role);
-                navigate("/dashboard");
+                // Show OTP dialog after successful login
+                setShowOtpDialog(true);
+                await ApiService.sendOtp({ email });
+                setRole(response.role);
+                setToken(response.token);
             }
         } catch (error) {
             setError(error.response?.data?.message || error.message);
@@ -36,8 +41,15 @@ function LoginPage() {
         }
     };
 
+    const handleOtpSuccess = () => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
+        navigate(from, { replace: true });
+        window.location.reload()
+    };
+
     return (
-        <div className="flex items-center justify-center bg-gray-100 ">
+        <div className="flex items-center justify-center bg-gray-100">
             <div className="max-w-md w-full bg-white mt-10 mb-10 shadow-md rounded-lg p-8">
                 <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
                 {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
@@ -82,6 +94,13 @@ function LoginPage() {
                     </a>
                 </p>
             </div>
+            {showOtpDialog && (
+                <OtpDialog
+                    email={email}
+                    onClose={() => setShowOtpDialog(false)}
+                    onSuccess={handleOtpSuccess}
+                />
+            )}
         </div>
     );
 }

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pdk.pothole.Dto.PotholeDto;
 import com.pdk.pothole.Dto.Response;
+import java.util.List;
 import com.pdk.pothole.Service.PotholeService;
 
 @CrossOrigin
@@ -39,4 +41,11 @@ public class PotholeController {
         Response response = potholeService.addPotholeDetails(latitude, longitude, potholeImage);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
+
+    @PostMapping("/add_pothole")
+    public ResponseEntity<Response> addPotholeList(@RequestBody List<PotholeDto> potholes) {
+        Response response = potholeService.addPotholeList(potholes);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
 }
