@@ -27,8 +27,11 @@ function App() {
         <Route path="/map/search" element={<SearchCity />} />
 
 
+        {/* Need to chnage to private */}
+        <Route path="/report-pothole" element={<PotholeReport />} />
+
         {/* Protected Route */}
-        <Route path="/report-pothole" element={<ProtectedRoute> <PotholeReport /> </ProtectedRoute>} />
+        {/* < Route path="/report-pothole" element={<ProtectedRoute> <PotholeReport /> </ProtectedRoute>} /> */}
         <Route path="/home" element={<ProtectedRoute> <HomePage /> </ProtectedRoute>} />
         <Route path="/admin" element={<AdminHome />} />
         <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />

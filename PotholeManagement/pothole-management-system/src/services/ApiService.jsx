@@ -57,4 +57,29 @@ export default class ApiService {
             throw error;
         }
     }
+
+    // Report Pothole photo
+    static async submitReport(data) {
+        try {
+            // Send data as JSON in the request body
+            const response = await axios.post(`${this.BASE_URL}/pothole/report-pothole`, {
+                image: data.image,           // Base64 encoded image string
+                location: data.location,     // Location object containing latitude and longitude
+                userId: data.userId          // User ID as a string or number
+            }, {
+                headers: {
+                    ...this.getHeader(),
+                    'Content-Type': 'application/json',  // Specify JSON content type
+                },
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error('Error submitting report:', error.response?.data || error.message);
+            throw error;
+        }
+    }
+
+
+
 }

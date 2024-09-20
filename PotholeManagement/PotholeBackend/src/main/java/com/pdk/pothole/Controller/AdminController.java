@@ -15,7 +15,7 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> getAllUsers() {
-        Response response = null;
+        Response response = new Response();
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }

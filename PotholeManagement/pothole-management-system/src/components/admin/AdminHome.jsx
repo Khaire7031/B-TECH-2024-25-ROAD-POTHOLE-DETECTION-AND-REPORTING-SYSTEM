@@ -1,110 +1,108 @@
+// AdminHome.js
 import React, { useState } from 'react';
-import menu from '../../assets/images/Menu.png';
-import cross from '../../assets/images/Cross.png';
-import analytics from '../../assets/images/Analytics.png';
-import dashboard from '../../assets/images/Dashboard.png';
-import Report from '../../assets/images/Report.png';
-import clsx from 'clsx';
-import Dashboard from './Dashboard';
+import AdminNavbar from './AdminNavbar';
 
 export default function AdminHome() {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [currentView, setCurrentView] = useState('Dashboard'); // State to manage the current view
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [activeContent, setActiveContent] = useState('dashboard');
 
+    // Function to toggle the sidebar
     const toggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen);
+        setIsSidebarOpen(!isSidebarOpen);
     };
 
-    const closeSidebar = () => {
-        setSidebarOpen(false);
-    };
-
-    const handleNavigation = (view) => {
-        setCurrentView(view);
-        closeSidebar(); // Close the sidebar on navigation
+    // Function to handle sidebar button clicks
+    const handleSidebarClick = (content) => {
+        setActiveContent(content);
+        setIsSidebarOpen(false); // Close the sidebar on mobile after clicking
     };
 
     return (
-        <div className="flex">
-            {/* Sidebar for PC and mobile */}
+        <div className="flex flex-col h-screen">
+            {/* Navbar */}
+            <AdminNavbar toggleSidebar={toggleSidebar} />
+
+            {/* Sidebar */}
             <aside
                 id="logo-sidebar"
-                className={clsx(
-                    'fixed left-0 mb-5 z-40 transition-transform bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700',
-                    sidebarOpen ? 'translate-x-0' : '-translate-x-full',
-                    'sm:translate-x-0 sm:relative sm:w-[20rem]'
-                )}
+                className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700 sm:translate-x-0`}
                 aria-label="Sidebar"
-                aria-expanded={sidebarOpen}
             >
-                <div className="h-full mt-5 px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+                <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
                     <ul className="space-y-2 font-medium">
                         <li>
-                            <a
-                                href="#"
-                                onClick={() => handleNavigation('Dashboard')}
-                                className="flex  items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            <button
+                                onClick={() => handleSidebarClick('dashboard')}
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
                             >
-                                <img className='w-6 h-6' src={dashboard} alt="Close" />
                                 <span className="ms-3">Dashboard</span>
-                            </a>
+                            </button>
                         </li>
                         <li>
-                            <a
-                                href="#"
-                                onClick={() => handleNavigation('Analytics')}
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            <button
+                                onClick={() => handleSidebarClick('kanban')}
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
                             >
-                                <img className='w-6 h-6' src={analytics} alt="Analytics" />
-                                <span className="flex-1 ms-3 whitespace-nowrap">Analytics</span>
-                            </a>
+                                <span className="flex-1 ms-3 whitespace-nowrap">Kanban</span>
+                                <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
+                                    Pro
+                                </span>
+                            </button>
                         </li>
                         <li>
-                            <a
-                                href="#"
-                                onClick={() => handleNavigation('Report')}
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            <button
+                                onClick={() => handleSidebarClick('inbox')}
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
                             >
-                                <img className='w-6 h-6' src={Report} alt="Report" />
-                                <span className="flex-1 ms-3 whitespace-nowrap">Report</span>
-                            </a>
+                                <span className="flex-1 ms-3 whitespace-nowrap">Inbox</span>
+                                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                                    3
+                                </span>
+                            </button>
                         </li>
-                        {
-                            sidebarOpen && <li>
-                                <a
-                                    href="#"
-                                    onClick={closeSidebar}
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                >
-                                    <span className="flex-1 ms-3 whitespace-nowrap">
-                                        <img className='w-6 h-6' src={cross} alt="Close" />
-                                    </span>
-                                </a>
-                            </li>
-                        }
+                        <li>
+                            <button
+                                onClick={() => handleSidebarClick('users')}
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
+                            >
+                                <span className="flex-1 ms-3 whitespace-nowrap">Users</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                onClick={() => handleSidebarClick('products')}
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
+                            >
+                                <span className="flex-1 ms-3 whitespace-nowrap">Products</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                onClick={() => handleSidebarClick('sign-in')}
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
+                            >
+                                <span className="flex-1 ms-3 whitespace-nowrap">Sign In</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                onClick={() => handleSidebarClick('other')}
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
+                            >
+                                <span className="flex-1 ms-3 whitespace-nowrap">Other Link</span>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </aside>
 
             {/* Main content */}
-            <div className="flex-1 p-4 transition-transform sm:ml-0">
-                {/* Toggle button for mobile view */}
-                <button
-                    type="button"
-                    onClick={toggleSidebar}
-                    className="font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 sm:hidden"
-                    aria-label="Toggle Sidebar"
-                >
-                    <img src={menu} alt="Menu" className='h-8 w-8' />
-                </button>
-
-                {/* Render content based on current view */}
-                <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-0">
-                    {currentView === 'Dashboard' && <Dashboard />}
-                    {currentView === 'Analytics' && <h1>Analytics Content</h1>}
-                    {currentView === 'Report' && <h1>Report Content</h1>}
-                </div>
-            </div>
+            <main className={`flex-1 p-4  sm:ml-64 transition-all ${isSidebarOpen ? 'ml-64' : ''}  dark:bg-gray-900`}>
+                <h1 className="text-2xl font-bold">{activeContent.charAt(0).toUpperCase() + activeContent.slice(1)} Content</h1>
+                <p className="mt-4">
+                    This is the {activeContent} content area. You can add additional components and elements here.
+                </p>
+            </main>
         </div>
     );
 }

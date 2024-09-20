@@ -34,20 +34,20 @@ public class UserController {
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> getAllUsers() {
-        Response response = null;
+        Response response = new Response();
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @PostMapping("/")
     public ResponseEntity<Response> addPothole(@RequestBody Pothole pothole) {
-        Response response = null;
+        Response response = new Response();
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @DeleteMapping("/delete/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> deleteUSer(@PathVariable("userId") String userId) {
-        Response response = null;
+        Response response = new Response();
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
@@ -56,13 +56,13 @@ public class UserController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        Response response = null;
+        Response response = new Response();
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @GetMapping("/get-user-bookings/{userId}")
     public ResponseEntity<Response> getUserBookingHistory(@PathVariable("userId") String userId) {
-        Response response = null;
+        Response response = new Response();
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }

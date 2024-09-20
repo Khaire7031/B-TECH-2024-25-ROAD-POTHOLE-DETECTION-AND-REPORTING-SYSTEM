@@ -17,7 +17,7 @@ public class OtpService {
     @Autowired
     private EmailService emailService;
 
-    private static final int OTP_LENGTH = 6;
+    // private static final int OTP_LENGTH = 6;
     private static final SecureRandom random = new SecureRandom();
     private Map<String, OtpDetails> otpStorage = new ConcurrentHashMap<>();
     private static final long OTP_EXPIRATION_TIME = TimeUnit.MINUTES.toMillis(5);

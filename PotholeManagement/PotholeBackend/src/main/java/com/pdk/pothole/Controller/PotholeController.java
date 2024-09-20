@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pdk.pothole.Dto.PotholeDto;
+import com.pdk.pothole.Dto.PotholeReportRequest;
 import com.pdk.pothole.Dto.Response;
 import java.util.List;
 import com.pdk.pothole.Service.PotholeService;
@@ -28,7 +29,7 @@ public class PotholeController {
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> getAllUsers() {
-        Response response = null;
+        Response response = new Response();
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
@@ -46,6 +47,23 @@ public class PotholeController {
     public ResponseEntity<Response> addPotholeList(@RequestBody List<PotholeDto> potholes) {
         Response response = potholeService.addPotholeList(potholes);
         return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @PostMapping("/report-pothole")
+    public ResponseEntity<Response> submitPothole(
+            @RequestBody PotholeReportRequest request) {
+
+        Response response = potholeService.addPotholeByUser(request);
+        response.setMessage("Pothole reported successfully!");
+        response.setStatusCode(200);
+
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @GetMapping("/flask-status")
+    public ResponseEntity<String> getFlaskStatus() {
+        String statusMessage = potholeService.getFlaskStatus();
+        return ResponseEntity.ok(statusMessage);
     }
 
 }

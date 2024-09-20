@@ -3,6 +3,8 @@ import Carousel from './Carousel';
 import navigateImage from '../../assets/images/Navigate.png';
 import { useNavigate } from 'react-router-dom';
 import Advantages from './Advantages';
+import Team from './Team';
+import Data from './Data';
 
 export default function HomePage() {
     const navigate = useNavigate();
@@ -17,18 +19,19 @@ export default function HomePage() {
     }
 
     return (
-        <div className="bg-gradient-to-b from-blue-500 to-white flex flex-col min-h-screen">
+        // <div className="bg-gradient-to-b from-blue-500 to-white flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen">
             {/* Carousel - Full Width */}
             <div className="w-full">
                 <Carousel />
             </div>
 
             {/* Centered Content */}
-            <div className="flex flex-col items-center text-center px-2">
+            <div className="flex flex-col items-center text-center">
                 <h4 className="text-xl pt-3 sm:text-2xl md:text-3xl font-bold font-roboto">
                     Pothole Management and Reporting System
                 </h4>
-                <p className="text-lg sm:text-xl text-gray-100 mt-2">
+                <p className="text-lg sm:text-xl text-gray-500 mt-2">
                     True navigation begins in the human heart.
                 </p>
 
@@ -53,6 +56,13 @@ export default function HomePage() {
                 <div className="mt-8">
                     <Advantages />
                 </div>
+                <h1>Pranav</h1>
+                <div className="mt-8">
+                    <Team />
+                    <Data />
+                </div>
+
+
 
             </div>
         </div>
