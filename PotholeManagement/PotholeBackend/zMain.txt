@@ -16,3 +16,9 @@ https://ap-southeast-2.console.aws.amazon.com/s3/buckets/hotelphoto?region=ap-so
 
 All Photo 
 https://ap-southeast-2.console.aws.amazon.com/s3/buckets/hotelphoto?region=ap-southeast-2&bucketType=general&tab=objects
+
+
+
+RDS
+https://ap-southeast-2.console.aws.amazon.com/rds/home?region=ap-southeast-2#databases:
+Sharayu7031

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Advantages from './Advantages';
 import Team from './Team';
 import Data from './Data';
+import Footer from './Footer';
 
 export default function HomePage() {
     const navigate = useNavigate();
@@ -62,6 +63,9 @@ export default function HomePage() {
                     <Data />
                 </div>
 
+                <div className='w-full'>
+                    <Footer />
+                </div>
 
 
             </div>

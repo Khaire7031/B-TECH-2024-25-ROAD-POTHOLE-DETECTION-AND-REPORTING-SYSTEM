@@ -1,5 +1,7 @@
 package com.pdk.pothole.Dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PotholeReportRequest {
-    private String image;
+    private MultipartFile image;
     private Location location;
     private String userId;
 }

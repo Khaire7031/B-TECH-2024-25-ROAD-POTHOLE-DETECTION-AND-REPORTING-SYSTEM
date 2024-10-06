@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import start from '../../assets/images/Start.png';
-import stop from '../../assets/images/stop.png';
 import submit from '../../assets/images/Submit.png';
 import capture from '../../assets/images/capture.png';
 import locationPng from '../../assets/images/Location.png';
@@ -87,23 +86,34 @@ export default function LeftBar() {
     const submitReport = async () => {
         if (image && location) {
             try {
-                console.log(image);
-                await ApiService.submitReport({
-                    userId: 1,            // Assuming user ID is 1
-                    image: image,         // Base64 encoded image
-                    location: location    // Location object with latitude and longitude
-                });
+                const formData = new FormData();
+                const response = await fetch(image); // Fetch the Blob from base64
+                const blob = await response.blob();
+
+                // Append the image and location to FormData
+                const imageName = `potholeimage${new Date().toTimeString().split(' ')[0].replace(/:/g, '-')}.png`;
+                console.log(imageName);
+
+                formData.append('image', blob, imageName);
+                formData.append('location', JSON.stringify(location)); // Convert Location object to JSON string
+                formData.append('userId', '1'); // Assuming user ID is 1
+
+                await ApiService.submitReport(formData);
                 setMessage('Pothole reported successfully!');
                 alert("Pothole reported successfully!");
                 setStream(null);  // Reset stream after reporting
                 setImage(null);   // Reset image after reporting
             } catch (error) {
                 setMessage('An error occurred while reporting the pothole.');
+                console.error('Error:', error);  // Log error for debugging
             }
         } else {
             setMessage('Please capture a photo and get the location first.');
         }
     };
+
+
+
 
 
     return (

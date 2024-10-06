@@ -10,6 +10,7 @@ import PotholeReport from './components/common/PotholeReport';
 import AdminHome from './components/admin/AdminHome';
 import Dashboard from './components/admin/Dashboard';
 import SearchCity from './components/Map/SearchCity';
+import PotholePointMap from './components/admin/PotholePointMap';
 
 
 
@@ -25,6 +26,8 @@ function App() {
         <Route path="/register" element={< RegisterPage />} />
         {/* <Route path="/map" element={<MapComponent />} /> */}
         <Route path="/map/search" element={<SearchCity />} />
+        <Route path="/pothole/point" element={<PotholePointMap />} />
+
 
 
         {/* Need to chnage to private */}
@@ -37,7 +40,7 @@ function App() {
         <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
 
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }

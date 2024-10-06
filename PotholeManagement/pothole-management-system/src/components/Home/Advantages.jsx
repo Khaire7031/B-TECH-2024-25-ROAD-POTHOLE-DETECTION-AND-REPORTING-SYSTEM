@@ -6,7 +6,7 @@ export default function Advantages() {
             id: 1,
             title: 'Noteworthy technology acquisitions 2021',
             description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-            img: 'https://sb.ecobnb.net/app/uploads/sites/3/2020/01/nature.jpg',
+            img: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Large_pot_hole_on_2nd_Avenue_in_New_York_City.JPG',
         },
         {
             id: 2,

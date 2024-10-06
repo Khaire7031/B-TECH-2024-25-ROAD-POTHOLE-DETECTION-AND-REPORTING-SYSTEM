@@ -3,7 +3,6 @@ package com.pdk.pothole.ServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.pdk.pothole.Dto.PotholeDto;
 import com.pdk.pothole.Dto.PotholeReportRequest;
@@ -14,16 +13,13 @@ import com.pdk.pothole.Entity.Status;
 import com.pdk.pothole.Entity.User;
 import com.pdk.pothole.Repository.PotholeRepository;
 import com.pdk.pothole.Repository.UserRepository;
+import com.pdk.pothole.Service.AwsS3Service;
 import com.pdk.pothole.Service.PotholeService;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-import java.time.LocalDateTime;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.time.LocalDateTime;
 import org.springframework.http.ResponseEntity;
 
 @Service
@@ -38,45 +34,47 @@ public class PotholeServiceImpl implements PotholeService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private AwsS3Service awsS3Service;
+
     private String url = "http://localhost:5000";
 
     @Override
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public Response addPotholeByUser(PotholeReportRequest request) {
         Response response = new Response();
+        // Cheack Pothole is present or not
 
-        System.out.println();
-        System.out.println("Length of image: " + request.getImage().length());
-        System.out.println("Received image data: " + request.getImage());
-        System.out.println("Received location data: Latitude: " + request.getLocation().getLatitude() +
-                ", Longitude: " + request.getLocation().getLongitude());
-        System.out.println("Received userId data: " + request.getUserId());
+        String potholeUrl = awsS3Service.saveImageToS3(request.getImage());
 
-        System.out.println();
+        Pothole pothole = new Pothole();
 
-        // Prepare the headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        pothole.setLatitude(request.getLocation().getLatitude());
+        pothole.setLongitude(request.getLocation().getLongitude());
+        pothole.setSeverity(Severity.HIGH);
+        pothole.setReportedDate(LocalDateTime.now());
+        pothole.setStatus(Status.REPORTED);
+        pothole.setUpdatedDate(LocalDateTime.now());
+        pothole.setPotholeImage(potholeUrl);
 
-        // Prepare the body with the image
-        Map<String, Object> body = new HashMap<>();
-        body.put("image", request.getImage());
+        Optional<User> user = userRepository.findById(Long.parseLong(request.getUserId()));
 
-        // Wrap it in an HttpEntity
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
+        if (user.isPresent()) {
+            pothole.setUser(user.get());
+        }
 
-        // Send POST request to Flask API
-        ResponseEntity<Map> response1 = restTemplate.exchange(url + "/upload_image", HttpMethod.POST, entity,
-                Map.class);
+        potholeRepository.save(pothole);
 
-        // Extract and return the message from the Flask API response
-        Map<String, Object> responseBody = response1.getBody();
-
-        System.out.println();
-        System.out.println("responseBody : " + responseBody);
-        System.out.println();
+        response.setMessage("Pothole reported successfully at s3 !");
+        response.setStatusCode(200);
 
         return response;
+    }
+
+    // Get All Pothole
+    @Override
+    public List<Pothole> getAllPothole() {
+        List<Pothole> potholesList = potholeRepository.findAll();
+        return potholesList;
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -86,6 +84,7 @@ public class PotholeServiceImpl implements PotholeService {
         return responseBody != null ? (String) responseBody.get("message") : "Error fetching status";
     }
 
+    // Add pothole List
     @Override
     public Response addPotholeList(List<PotholeDto> potholes) {
         User user = userRepository.findById((long) 4).orElse(null);
@@ -110,11 +109,71 @@ public class PotholeServiceImpl implements PotholeService {
         return response;
     }
 
-    @Override
-    public Response addPotholeDetails(Double latitude, Double longitude, MultipartFile potholeImage) {
-        Response response = new Response();
-        response.setStatusCode(200);
-        return response;
+    public void printData(PotholeReportRequest request) {
+        System.out.println();
+        // System.out.println("Length of image: " + request.getImage().length());
+        System.out.println("Received image data: " + request.getImage());
+        System.out.println("Latitude: " + request.getLocation().getLatitude() + ", Longitude: "
+                + request.getLocation().getLongitude());
+        System.out.println("Received userId data: " + request.getUserId());
+        System.out.println();
     }
 
 }
+
+// public Response addPotholeByUser(PotholeReportRequest request) {
+// // Prepare the headers
+// // HttpHeaders headers = new HttpHeaders();
+// // headers.setContentType(MediaType.APPLICATION_JSON);
+
+// // // Prepare the body with the image
+// // Map<String, Object> body = new HashMap<>();
+// // body.put("image", request.getImage());
+
+// // // Wrap it in an HttpEntity
+// // HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
+
+// // // Send POST request to Flask API
+// // ResponseEntity<Map> flaskResponce = restTemplate.exchange(url +
+// // "/upload_image", HttpMethod.POST, entity,
+// // Map.class);
+
+// // // Extract and return the message from the Flask API response
+// // Map<String, Object> responseBody = flaskResponce.getBody();
+
+// // System.out.println();
+// // System.out.println("responseBody : " + responseBody);
+// // System.out.println();
+
+// Pothole pothole = new Pothole();
+
+// pothole.setLatitude(request.getLocation().getLatitude());
+// pothole.setLongitude(request.getLocation().getLongitude());
+// pothole.setSeverity(Severity.HIGH);
+// pothole.setReportedDate(LocalDateTime.now());
+// pothole.setStatus(Status.REPORTED);
+// pothole.setUpdatedDate(LocalDateTime.now());
+// // pothole.setPotholeImage(request.getImage());
+
+// Optional<User> user =
+// userRepository.findById(Long.parseLong(request.getUserId()));
+
+// if (user.isPresent()) {
+// pothole.setUser(user.get());
+// }
+
+// potholeRepository.save(pothole);
+
+// Response response = new Response();
+
+// response.setMessage("Pothole reported successfully!");
+// response.setStatusCode(200);
+
+// System.out.println();
+// System.out.println();
+// System.out.println(pothole);
+// System.out.println(response);
+// System.out.println();
+// System.out.println();
+// return response;
+// }

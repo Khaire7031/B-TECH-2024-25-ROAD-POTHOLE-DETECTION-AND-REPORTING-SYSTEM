@@ -3,6 +3,7 @@ import mapImage from '../../assets/images/Map.png';
 import cities from './data'; // Make sure the path is correct
 import RenderMap from './RenderMap';
 import { motion } from 'framer-motion';
+import Footer from '../Home/Footer';
 
 export default function SearchCity() {
     const [startCity, setStartCity] = useState(null);
@@ -76,6 +77,9 @@ export default function SearchCity() {
             </div>
             {/* RenderMap Component */}
             <RenderMap startCity={startCity} endCity={endCity} />
+            <div className='w-full'>
+                <Footer />
+            </div>
         </motion.div>
     );
 }

@@ -1,10 +1,11 @@
 // AdminNavbar.js
 import React from 'react';
+import mapImage from '../../assets/Map.png';
 
 const AdminNavbar = ({ toggleSidebar }) => {
     return (
-        <nav className="fixed top-0 h-[73px] left-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-            <div className="px-3 py-3 lg:px-5 lg:pl-3">
+        <nav className="fixed top-0 p-2 h-[73px] left-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div className="px-3 py-3 lg:px-5 lg:pl-3 ">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center">
                         <button
@@ -16,7 +17,8 @@ const AdminNavbar = ({ toggleSidebar }) => {
                             <span className="sr-only">Toggle sidebar</span>
                             <span className="text-2xl font-bold text-gray-500">☰</span>
                         </button>
-                        <a href="#" className="flex ms-2 md:me-24">
+                        <a href="/" className="flex gap-2 ms-2 md:me-24">
+                            <img src={mapImage} className="h-8" alt="Pothole Logo" />
                             <span className="self-center text-2xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                                 Pothole
                             </span>
@@ -33,7 +35,7 @@ const AdminNavbar = ({ toggleSidebar }) => {
                                 <span className="sr-only">Open user menu</span>
                                 <img
                                     className="w-8 h-8 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                    src="https://static.vecteezy.com/system/resources/previews/024/183/502/original/male-avatar-portrait-of-a-young-man-with-a-beard-illustration-of-male-character-in-modern-color-style-vector.jpg"
                                     alt="user photo"
                                 />
                             </button>

@@ -38,12 +38,6 @@ public class UserController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Response> addPothole(@RequestBody Pothole pothole) {
-        Response response = new Response();
-        return ResponseEntity.status(response.getStatusCode()).body(response);
-    }
-
     @DeleteMapping("/delete/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> deleteUSer(@PathVariable("userId") String userId) {

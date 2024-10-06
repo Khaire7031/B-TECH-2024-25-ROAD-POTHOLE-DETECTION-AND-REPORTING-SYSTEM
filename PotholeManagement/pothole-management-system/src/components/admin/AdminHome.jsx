@@ -1,6 +1,7 @@
 // AdminHome.js
 import React, { useState } from 'react';
 import AdminNavbar from './AdminNavbar';
+import Dashboard from './Dashboard';
 
 export default function AdminHome() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -43,7 +44,7 @@ export default function AdminHome() {
                                 onClick={() => handleSidebarClick('kanban')}
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
                             >
-                                <span className="flex-1 ms-3 whitespace-nowrap">Kanban</span>
+                                <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
                                 <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
                                     Pro
                                 </span>
@@ -54,7 +55,7 @@ export default function AdminHome() {
                                 onClick={() => handleSidebarClick('inbox')}
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
                             >
-                                <span className="flex-1 ms-3 whitespace-nowrap">Inbox</span>
+                                <span className="flex-1 ms-3 whitespace-nowrap">Notification</span>
                                 <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
                                     3
                                 </span>
@@ -89,7 +90,7 @@ export default function AdminHome() {
                                 onClick={() => handleSidebarClick('other')}
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
                             >
-                                <span className="flex-1 ms-3 whitespace-nowrap">Other Link</span>
+                                <span className="flex-1 ms-3 whitespace-nowrap">Logout</span>
                             </button>
                         </li>
                     </ul>
@@ -99,9 +100,15 @@ export default function AdminHome() {
             {/* Main content */}
             <main className={`flex-1 p-4  sm:ml-64 transition-all ${isSidebarOpen ? 'ml-64' : ''}  dark:bg-gray-900`}>
                 <h1 className="text-2xl font-bold">{activeContent.charAt(0).toUpperCase() + activeContent.slice(1)} Content</h1>
-                <p className="mt-4">
-                    This is the {activeContent} content area. You can add additional components and elements here.
-                </p>
+                <div className="mt-4">
+                    {
+                        activeContent == "dashboard" && <Dashboard />
+                    }
+                    {
+                        activeContent == "kanban" && <h1>Kanban</h1>
+                    }
+                    {/* similary like this .. */}
+                </div>
             </main>
         </div>
     );
