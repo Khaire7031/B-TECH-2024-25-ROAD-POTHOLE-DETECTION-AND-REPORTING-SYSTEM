@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +22,11 @@ import com.pdk.pothole.Dto.PotholeDto;
 import com.pdk.pothole.Dto.PotholeReportRequest;
 import com.pdk.pothole.Dto.Response;
 import com.pdk.pothole.Entity.Pothole;
+import com.pdk.pothole.Entity.User;
 
 import java.util.List;
 import com.pdk.pothole.Service.PotholeService;
+import com.pdk.pothole.Service.UserService;
 
 import io.jsonwebtoken.io.IOException;
 
@@ -34,23 +38,13 @@ public class PotholeController {
     @Autowired
     private PotholeService potholeService;
 
+    @Autowired
+    private UserService userService;
+
     // @GetMapping("/all")
     // @PreAuthorize("hasAuthority('ADMIN')")
     // public ResponseEntity<Response> getAllUsers() {
     // Response response = new Response();
-    // return ResponseEntity.status(response.getStatusCode()).body(response);
-    // }
-
-    /**
-     * Reports a pothole submitted by the user.
-     *
-     * @param request the details of the pothole report
-     * @return ResponseEntity containing the response message and status code
-     */
-    // @PostMapping("/report-pothole")
-    // public ResponseEntity<Response> submitPothole(
-    // @RequestBody PotholeReportRequest request) {
-    // Response response = potholeService.addPotholeByUser(request);
     // return ResponseEntity.status(response.getStatusCode()).body(response);
     // }
 
@@ -93,11 +87,6 @@ public class PotholeController {
         return ResponseEntity.status(200).body(potholesList);
     }
 
-    /**
-     * Retrieves the status of the Flask application.
-     * 
-     * @return ResponseEntity containing the status message
-     */
     @GetMapping("/flask-status")
     public ResponseEntity<String> getFlaskStatus() {
         String statusMessage = potholeService.getFlaskStatus();
@@ -108,6 +97,25 @@ public class PotholeController {
     @PostMapping("/add_pothole")
     public ResponseEntity<Response> addPotholeList(@RequestBody List<PotholeDto> potholes) {
         Response response = potholeService.addPotholeList(potholes);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @GetMapping("/all/user")
+    public ResponseEntity<List<User>> getAllUser() {
+        List<User> userList = userService.getAllUsers();
+        return ResponseEntity.status(200).body(userList);
+    }
+
+    @DeleteMapping("/delete/{potholeId}")
+    public ResponseEntity<Response> deletePothole(@PathVariable("potholeId") long potholeId) {
+        Response response = potholeService.deletePothole(potholeId);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @PostMapping("/update-status/{potholeId}")
+    public ResponseEntity<Response> updatePotholeStatus(@PathVariable("potholeId") long potholeId,
+            @RequestParam String status) {
+        Response response = potholeService.updateStatus(potholeId, status);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 

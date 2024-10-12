@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pothole Detection</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .custom-file-input:lang(en) ~ .custom-file-label::after {
+        content: "Browse";
+      }
+      .custom-file-label::after {
+        background-color: #007bff;
+        color: white;
+      }
+      .custom-file-input:focus ~ .custom-file-label {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+      .btn-custom {
+        background-color: #28a745; /* Change to your desired color */
+        border: none;
+        width: auto; /* Adjust width to fit content */
+      }
+      .btn-custom:hover {
+        background-color: #218838; /* Darker shade on hover */
+      }
+      .file-upload-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5 text-center">Pothole Detection</h1>
+      <form method="POST" enctype="multipart/form-data" class="mt-3">
+        <div class="form-group file-upload-container">
+          <div class="custom-file" style="width: auto">
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              required
+              class="custom-file-input"
+              id="customFile"
+            />
+            <label class="custom-file-label" for="customFile"
+              >Choose file</label
+            >
+          </div>
+          <button type="submit" class="btn btn-custom ml-2">Upload</button>
+        </div>
+      </form>
+
+      {% if original_image %}
+      <div class="mt-5">
+        <h2 class="text-center">Results</h2>
+        <h4 class="mt-3 text-center">Potholes Detected: {{ pothole_count }}</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="text-center">Original Image</h4>
+            <img
+              src="{{ original_image }}"
+              class="img-fluid"
+              alt="Original Image"
+            />
+          </div>
+          <div class="col-md-6">
+            <h4 class="text-center">Detected Image</h4>
+            <img
+              src="{{ detected_image }}"
+              class="img-fluid"
+              alt="Detected Image"
+            />
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    <div class="mt-5">==</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

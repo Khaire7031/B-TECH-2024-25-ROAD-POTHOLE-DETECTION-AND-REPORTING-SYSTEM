@@ -1,5 +1,7 @@
 package com.pdk.pothole.ServiceImplementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -92,5 +94,11 @@ public class UserServiceImpl implements UserService {
             response.setMessage("Error Occurred During User Login " + e.getMessage());
         }
         return response;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> userList = userRepository.findAll();
+        return userList;
     }
 }

@@ -11,6 +11,7 @@ import AdminHome from './components/admin/AdminHome';
 import Dashboard from './components/admin/Dashboard';
 import SearchCity from './components/Map/SearchCity';
 import PotholePointMap from './components/admin/PotholePointMap';
+import MapRoad from './components/Map/map';
 
 
 

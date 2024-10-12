@@ -4,21 +4,21 @@ export default function Advantages() {
     const dummyData = [
         {
             id: 1,
-            title: 'Noteworthy technology acquisitions 2021',
-            description: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
+            title: 'Real-Time Detection',
+            description: 'Instant pothole identification using advanced machine learning and image processing.',
             img: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Large_pot_hole_on_2nd_Avenue_in_New_York_City.JPG',
         },
         {
             id: 2,
-            title: 'Sustainable Development Goals 2022',
-            description: 'The UN SDGs aim to create a better future for all, covering various global challenges.',
-            img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Altja_j%C3%B5gi_Lahemaal.jpg/1200px-Altja_j%C3%B5gi_Lahemaal.jpg',
+            title: 'Smart Navigation',
+            description: 'Seamless integration with navigation apps to suggest the safest routes, avoiding road hazards.',
+            img: 'https://mapmetrics.org/wp-content/uploads/2024/04/A-high-resolution-image-of-a-sophisticated-GPS-navigation-system.jpg',
         },
         {
             id: 3,
-            title: 'Innovative Tech Solutions 2023',
-            description: 'Discover the newest innovations in technology this year that are changing the world.',
-            img: 'https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?cs=srgb&dl=pexels-souvenirpixels-417074.jpg&fm=jpg',
+            title: "Efficient Maintenance",
+            description: 'Automated reporting and centralized data storage to help municipalities prioritize repairs.',
+            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5_Ec-KvyOW7ixB5HzCOYE_-ypyTfDAGVJXw&s',
         },
     ];
 
@@ -43,27 +43,6 @@ export default function Advantages() {
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                 {item.description}
                             </p>
-                            <a
-                                href="#"
-                                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            >
-                                Read more
-                                <svg
-                                    className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 14 10"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M1 5h12m0 0L9 1m4 4L9 9"
-                                    />
-                                </svg>
-                            </a>
                         </div>
                     </div>
                 ))}

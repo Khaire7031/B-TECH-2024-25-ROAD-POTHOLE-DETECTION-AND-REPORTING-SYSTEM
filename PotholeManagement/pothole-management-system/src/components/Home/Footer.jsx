@@ -18,12 +18,8 @@ export default function Footer() {
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <img
-                            src="https://flowbite.com/docs/images/logo.svg"
-                            className="h-10 w-10"
-                            alt="Flowbite Logo"
-                        />
-                        <span className="self-center text-3xl font-bold whitespace-nowrap">Pranav</span>
+
+                        <span className="self-center text-3xl font-bold whitespace-nowrap">Pothole</span>
                     </motion.a>
                     <ul className="flex flex-col sm:flex-row items-center text-sm font-medium space-y-4 sm:space-y-0 sm:space-x-6 dark:text-gray-300">
                         {['About', 'Team', 'Contact Us'].map((text, index) => (
@@ -47,7 +43,7 @@ export default function Footer() {
                 <hr className="my-8 border-gray-300 sm:mx-auto lg:my-10" />
                 <div className="flex flex-col items-center text-center sm:text-left sm:flex-row justify-between space-y-4 sm:space-y-0">
                     <span className="text-sm text-gray-200">
-                        © 2023 <a href="https://flowbite.com/" className="hover:underline">Pranav™</a>. All Rights Reserved.
+                        © 2024 <a href="https://flowbite.com/" className="hover:underline">Pothole™</a>. All Rights Reserved.
                     </span>
                     <div className="flex space-x-4">
                         {[

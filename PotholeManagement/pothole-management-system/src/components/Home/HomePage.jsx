@@ -57,7 +57,6 @@ export default function HomePage() {
                 <div className="mt-8">
                     <Advantages />
                 </div>
-                <h1>Pranav</h1>
                 <div className="mt-8">
                     <Team />
                     <Data />

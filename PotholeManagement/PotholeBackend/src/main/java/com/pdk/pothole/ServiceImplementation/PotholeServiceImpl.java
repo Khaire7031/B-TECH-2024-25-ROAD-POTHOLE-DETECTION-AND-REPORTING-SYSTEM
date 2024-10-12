@@ -53,6 +53,10 @@ public class PotholeServiceImpl implements PotholeService {
         pothole.setSeverity(Severity.HIGH);
         pothole.setReportedDate(LocalDateTime.now());
         pothole.setStatus(Status.REPORTED);
+
+        // Add Random
+        pothole.setPercentage((int) (Math.random() * 81) + 20);
+
         pothole.setUpdatedDate(LocalDateTime.now());
         pothole.setPotholeImage(potholeUrl);
 
@@ -117,6 +121,44 @@ public class PotholeServiceImpl implements PotholeService {
                 + request.getLocation().getLongitude());
         System.out.println("Received userId data: " + request.getUserId());
         System.out.println();
+    }
+
+    public Response deletePothole(Long potholeId) {
+        Optional<Pothole> pothole = potholeRepository.findById(potholeId);
+        Response response = new Response();
+
+        if (pothole.isPresent()) {
+            potholeRepository.delete(pothole.get());
+            response.setMessage("Pothole deleted successfully");
+            response.setStatusCode(200);
+        } else {
+            response.setMessage("Pothole not found");
+            response.setStatusCode(404);
+        }
+        return response;
+    }
+
+    public Response updateStatus(Long potholeId, String status) {
+        // Find the pothole by ID
+        Optional<Pothole> pothole = potholeRepository.findById(potholeId);
+        Response response = new Response();
+
+        if (pothole.isPresent()) {
+            // Update the status of the pothole if found
+            Pothole existingPothole = pothole.get();
+
+            existingPothole.setStatus(Status.FIXED);
+            potholeRepository.save(existingPothole);
+
+            response.setMessage("Pothole status updated to: " + status);
+            response.setStatusCode(200);
+        } else {
+            // Return a response if the pothole was not found
+            response.setMessage("Pothole not found");
+            response.setStatusCode(404);
+        }
+
+        return response;
     }
 
 }

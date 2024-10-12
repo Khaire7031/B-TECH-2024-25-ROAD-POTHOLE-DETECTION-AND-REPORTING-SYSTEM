@@ -45,8 +45,9 @@ const Routing = ({ startCity, endCity }) => {
 };
 
 const MapRoad = () => {
-    const viit = { city: 'Viit', lat: 18.4561739, lng: 73.878775 };
+    const viit = { city: 'Viit', lat: 18.4568308, lng: 73.8832905 };
     const vit = { city: 'Vit', lat: 18.4636, lng: 73.8682 };
+    // const Dmart = { city: 'Dmart', lat: 18.4571962, lng: 73.891587 };
 
     return (
         <div className="w-full h-screen">

@@ -16,4 +16,8 @@ public interface PotholeService {
     String getFlaskStatus();
 
     List<Pothole> getAllPothole();
+
+    Response deletePothole(Long potholeId);
+
+    Response updateStatus(Long potholeId, String status);
 }

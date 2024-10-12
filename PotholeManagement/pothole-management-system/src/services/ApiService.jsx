@@ -2,6 +2,8 @@ import axios from 'axios';
 
 export default class ApiService {
     static BASE_URL = 'http://localhost:3000';
+    // https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environment/dashboard?environmentId=e-h5birhndsn
+    // static BASE_URL = 'http://pothole.ap-southeast-2.elasticbeanstalk.com';
 
 
     static getHeader() {
