@@ -52,7 +52,7 @@ def process_image(image_path):
         boxes = r.boxes
         for box in boxes:
             confidence = box.conf[0]  # Get the confidence score
-            if confidence > 0.40:  # Only consider detections with confidence > 0.70
+            if confidence > 0.01:  # Only consider detections with confidence > 0.70
                 x1, y1, x2, y2 = map(int, box.xyxy[0])  # Get bounding box coordinates
                 class_id = int(box.cls[0])
                 class_name = model.names[class_id]
@@ -66,4 +66,4 @@ def process_image(image_path):
     return img, pothole_count  # Return only the modified image and count
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    pp.run(debug=True,port=4000)

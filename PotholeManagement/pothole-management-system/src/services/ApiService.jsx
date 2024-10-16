@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default class ApiService {
-    static BASE_URL = 'http://localhost:3000';
+    static BASE_URL = 'http://localhost:5000';
     // https://ap-southeast-2.console.aws.amazon.com/elasticbeanstalk/home?region=ap-southeast-2#/environment/dashboard?environmentId=e-h5birhndsn
     // static BASE_URL = 'http://pothole.ap-southeast-2.elasticbeanstalk.com';
 
@@ -89,26 +89,41 @@ export default class ApiService {
         }
     }
 
-    static async updatePotholeStatus(id, data) {
+    static async updatePotholeStatus(potholeId, status) {
         try {
-            const response = await axios.put(`${this.BASE_URL}/potholes/${id}/status`, data);
-            return response.data; // Return the response data from the API
+            const response = await axios.post(`${this.BASE_URL}/pothole/update-status/${potholeId}`, status, {
+                headers: {
+                    'Content-Type': 'text/plain',  // Sending the status as plain text
+                },
+            });
+            return response.data;
         } catch (error) {
             console.error('Error updating pothole status:', error.response?.data || error.message);
-            throw error; // Re-throw the error to handle it in the calling function
+            throw error;
         }
     }
 
     // Delete Pothole
     static async deletePothole(id) {
         try {
-            const response = await axios.delete(`${this.BASE_URL}/potholes/${id}`);
-            return response.data; // Return the response data from the API
+            const response = await axios.post(`${this.BASE_URL}/pothole/delete/${id}`);
+            return response.data;
         } catch (error) {
             console.error('Error deleting pothole:', error.response?.data || error.message);
-            throw error; // Re-throw the error to handle it in the calling function
+            throw error;
         }
     }
 
+
+
+    static async getAllUsers() {
+        try {
+            const response = await axios.get(`${this.BASE_URL}/pothole/all/users`);
+            return response.data;
+        } catch (error) {
+            console.error('Error in getting all Users');
+            throw error;
+        }
+    }
 
 }

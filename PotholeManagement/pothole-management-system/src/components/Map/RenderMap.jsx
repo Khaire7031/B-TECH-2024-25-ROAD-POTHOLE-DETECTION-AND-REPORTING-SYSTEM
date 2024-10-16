@@ -83,7 +83,7 @@ const Routing = ({ startCity, endCity }) => {
 
 const RenderMap = ({ startCity, endCity }) => {
     if (!startCity || !endCity) {
-        return <div className="mt-6 p-4 bg-white rounded-md shadow-md">Please select both start and end cities.</div>;
+        return <div className="text-center mt-2 p-4 bg-white rounded-md shadow-md">Please select both start and end cities.</div>;
     }
 
     return (

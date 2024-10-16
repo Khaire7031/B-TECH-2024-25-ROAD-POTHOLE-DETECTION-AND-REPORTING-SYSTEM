@@ -54,7 +54,7 @@ export default function PotholeList() {
                         <th className="border px-2 py-2 text-center">Severity</th>
                         <th className="border px-2 py-2 text-center">Status</th>
                         <th className="border px-2 py-2 text-center">Reported Date</th>
-                        <th className="border px-2 py-2 text-center">Action</th>
+                        <th className="border px-2 py-2 text-center">View</th>
                         <th className="border px-2 py-2 text-center">User</th>
                     </tr>
                 </thead>

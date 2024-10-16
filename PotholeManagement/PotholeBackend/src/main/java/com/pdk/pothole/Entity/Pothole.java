@@ -43,7 +43,7 @@ public class Pothole {
     @Column(name = "image_url")
     private String potholeImage;
 
-    private int percentage;
+    private int potholeCount;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

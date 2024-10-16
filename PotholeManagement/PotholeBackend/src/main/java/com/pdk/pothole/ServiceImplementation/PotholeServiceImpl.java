@@ -1,8 +1,13 @@
 package com.pdk.pothole.ServiceImplementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.http.MediaType;
 
 import com.pdk.pothole.Dto.PotholeDto;
 import com.pdk.pothole.Dto.PotholeReportRequest;
@@ -19,6 +24,7 @@ import com.pdk.pothole.Service.PotholeService;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import org.springframework.http.ResponseEntity;
 
@@ -39,39 +45,83 @@ public class PotholeServiceImpl implements PotholeService {
 
     private String url = "http://localhost:5000";
 
+    private final String FLASK_API_URL = "http://localhost:4000/detect_potholes";
+
     @Override
-    public Response addPotholeByUser(PotholeReportRequest request) {
+    public Response addPotholeByUser(PotholeReportRequest request) throws IOException {
+        // public Response addPotholeByUser(PotholeReportRequest request, int
+        // potholeCount) throws IOException {
         Response response = new Response();
-        // Cheack Pothole is present or not
 
-        String potholeUrl = awsS3Service.saveImageToS3(request.getImage());
-
-        Pothole pothole = new Pothole();
-
-        pothole.setLatitude(request.getLocation().getLatitude());
-        pothole.setLongitude(request.getLocation().getLongitude());
-        pothole.setSeverity(Severity.HIGH);
-        pothole.setReportedDate(LocalDateTime.now());
-        pothole.setStatus(Status.REPORTED);
-
-        // Add Random
-        pothole.setPercentage((int) (Math.random() * 81) + 20);
-
-        pothole.setUpdatedDate(LocalDateTime.now());
-        pothole.setPotholeImage(potholeUrl);
-
-        Optional<User> user = userRepository.findById(Long.parseLong(request.getUserId()));
-
-        if (user.isPresent()) {
-            pothole.setUser(user.get());
+        // Validate the request image
+        if (request.getImage() == null || request.getImage().isEmpty()) {
+            response.setMessage("Image file is missing in the request.");
+            response.setStatusCode(400); // Bad Request
+            return response;
         }
 
-        potholeRepository.save(pothole);
+        // Try to upload the image to AWS S3
+        String potholeUrl;
+        try {
+            potholeUrl = awsS3Service.saveImageToS3(request.getImage());
+        } catch (Exception e) {
+            response.setMessage("Failed to upload image to AWS S3: " + e.getMessage());
+            response.setStatusCode(500); // Internal Server Error
+            return response;
+        }
 
-        response.setMessage("Pothole reported successfully at s3 !");
-        response.setStatusCode(200);
+        // Create the pothole entity
+        Pothole pothole = new Pothole();
+        pothole.setLatitude(request.getLocation().getLatitude());
+        pothole.setLongitude(request.getLocation().getLongitude());
+        pothole.setSeverity(determineSeverity(0)); // Set default severity or adjust based on your logic
+        pothole.setStatus(Status.REPORTED);
+        pothole.setReportedDate(LocalDateTime.now());
+        pothole.setUpdatedDate(LocalDateTime.now());
+        pothole.setPotholeImage(potholeUrl);
+        pothole.setPotholeCount(0); // Set default count or adjust based on your logic
 
+        // Validate and find the user by ID
+        Long userId;
+        try {
+            userId = Long.parseLong(request.getUserId());
+        } catch (NumberFormatException e) {
+            response.setMessage("Invalid User ID format.");
+            response.setStatusCode(400); // Bad Request
+            return response;
+        }
+
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
+            response.setMessage("User not found.");
+            response.setStatusCode(404); // User Not Found
+            return response;
+        }
+
+        // Save the pothole report
+        pothole.setUser(userOptional.get());
+        try {
+            potholeRepository.save(pothole);
+        } catch (Exception e) {
+            response.setMessage("Failed to save pothole report: " + e.getMessage());
+            response.setStatusCode(500); // Internal Server Error
+            return response;
+        }
+
+        // Set successful response
+        response.setMessage("Pothole reported successfully.");
+        response.setStatusCode(200); // OK
         return response;
+    }
+
+    private Severity determineSeverity(int potholeCount) {
+        if (potholeCount == 0) {
+            return Severity.LOW;
+        } else if (potholeCount <= 5) {
+            return Severity.MODERATE;
+        } else {
+            return Severity.HIGH;
+        }
     }
 
     // Get All Pothole
@@ -147,10 +197,16 @@ public class PotholeServiceImpl implements PotholeService {
             // Update the status of the pothole if found
             Pothole existingPothole = pothole.get();
 
-            existingPothole.setStatus(Status.FIXED);
+            if (status.equals("FIXED")) {
+                existingPothole.setStatus(Status.FIXED);
+            } else if (status.equals("UNDER_REVIEW")) {
+                existingPothole.setStatus(Status.UNDER_REVIEW);
+            } else if (status.equals("IGNORED")) {
+                existingPothole.setStatus(Status.IGNORED);
+            }
             potholeRepository.save(existingPothole);
 
-            response.setMessage("Pothole status updated to: " + status);
+            response.setMessage("Pothole status updated to : " + status);
             response.setStatusCode(200);
         } else {
             // Return a response if the pothole was not found
@@ -219,3 +275,131 @@ public class PotholeServiceImpl implements PotholeService {
 // System.out.println();
 // return response;
 // }
+
+/*
+ * 
+ * public Response addPotholeByUser(PotholeReportRequest request) throws
+ * IOException {
+ * Response response = new Response();
+ * 
+ * // Validate the request image
+ * if (request.getImage() == null || request.getImage().isEmpty()) {
+ * response.setMessage("Image file is missing in the request.");
+ * response.setStatusCode(400); // Bad Request
+ * return response;
+ * }
+ * 
+ * // Set headers for Flask API
+ * HttpHeaders headers = new HttpHeaders();
+ * headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+ * 
+ * // Prepare the body for Flask API using MultiValueMap for multipart/form-data
+ * MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+ * body.add("image", new ByteArrayResource(request.getImage().getBytes()) {
+ * 
+ * @Override
+ * public String getFilename() {
+ * return request.getImage().getOriginalFilename();
+ * }
+ * });
+ * 
+ * HttpEntity<MultiValueMap<String, Object>> requestEntity = new
+ * HttpEntity<>(body, headers);
+ * 
+ * // Try sending the request to the Flask API
+ * ResponseEntity<MultiValueMap<String, Object>> responseFromFlask;
+ * try {
+ * responseFromFlask = restTemplate.exchange(
+ * FLASK_API_URL,
+ * HttpMethod.POST,
+ * requestEntity,
+ * new ParameterizedTypeReference<>() {}
+ * );
+ * } catch (Exception e) {
+ * response.setMessage("Error while communicating with Flask API: " +
+ * e.getMessage());
+ * response.setStatusCode(500); // Internal Server Error
+ * return response;
+ * }
+ * 
+ * // Check if the Flask API response was successful
+ * if (!responseFromFlask.getStatusCode().is2xxSuccessful()) {
+ * response.setMessage("Flask API failed to process the image.");
+ * response.setStatusCode(500); // Internal Server Error
+ * return response;
+ * }
+ * 
+ * // Ensure the Pothole-Count header is present
+ * String potholeCountHeader =
+ * responseFromFlask.getHeaders().getFirst("Pothole-Count");
+ * if (potholeCountHeader == null) {
+ * response.
+ * setMessage("Pothole-Count header is missing from Flask API response.");
+ * response.setStatusCode(500); // Internal Server Error
+ * return response;
+ * }
+ * 
+ * int potholeCount;
+ * try {
+ * potholeCount = Integer.parseInt(potholeCountHeader);
+ * } catch (NumberFormatException e) {
+ * response.setMessage("Invalid Pothole-Count value returned from Flask API.");
+ * response.setStatusCode(500); // Internal Server Error
+ * return response;
+ * }
+ * 
+ * // Try to upload the image to AWS S3
+ * String potholeUrl;
+ * try {
+ * potholeUrl = awsS3Service.saveImageToS3(request.getImage());
+ * } catch (Exception e) {
+ * response.setMessage("Failed to upload image to AWS S3: " + e.getMessage());
+ * response.setStatusCode(500); // Internal Server Error
+ * return response;
+ * }
+ * 
+ * // Create the pothole entity
+ * Pothole pothole = new Pothole();
+ * pothole.setLatitude(request.getLocation().getLatitude());
+ * pothole.setLongitude(request.getLocation().getLongitude());
+ * pothole.setSeverity(determineSeverity(potholeCount));
+ * pothole.setStatus(Status.REPORTED);
+ * pothole.setReportedDate(LocalDateTime.now());
+ * pothole.setUpdatedDate(LocalDateTime.now());
+ * pothole.setPotholeImage(potholeUrl);
+ * pothole.setPotholeCount(potholeCount);
+ * 
+ * // Validate and find the user by ID
+ * Long userId;
+ * try {
+ * userId = Long.parseLong(request.getUserId());
+ * } catch (NumberFormatException e) {
+ * response.setMessage("Invalid User ID format.");
+ * response.setStatusCode(400); // Bad Request
+ * return response;
+ * }
+ * 
+ * Optional<User> userOptional = userRepository.findById(userId);
+ * if (userOptional.isEmpty()) {
+ * response.setMessage("User not found.");
+ * response.setStatusCode(404); // User Not Found
+ * return response;
+ * }
+ * 
+ * // Save the pothole report
+ * pothole.setUser(userOptional.get());
+ * try {
+ * potholeRepository.save(pothole);
+ * } catch (Exception e) {
+ * response.setMessage("Failed to save pothole report: " + e.getMessage());
+ * response.setStatusCode(500); // Internal Server Error
+ * return response;
+ * }
+ * 
+ * // Set successful response
+ * response.setMessage("Pothole reported successfully.");
+ * response.setStatusCode(200); // OK
+ * return response;
+ * }
+ * 
+ */

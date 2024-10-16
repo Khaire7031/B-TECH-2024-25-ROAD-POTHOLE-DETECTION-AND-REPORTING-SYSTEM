@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import AdminNavbar from './AdminNavbar';
 import Dashboard from './Dashboard';
+import Users from './Users';
 
 export default function AdminHome() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -99,13 +100,16 @@ export default function AdminHome() {
 
             {/* Main content */}
             <main className={`flex-1 p-4  sm:ml-64 transition-all ${isSidebarOpen ? 'ml-64' : ''}  dark:bg-gray-900`}>
-                <h1 className="text-2xl font-bold">{activeContent.charAt(0).toUpperCase() + activeContent.slice(1)} Content</h1>
+                <h1 className="text-2xl font-bold">{activeContent.charAt(0).toUpperCase() + activeContent.slice(1)} </h1>
                 <div className="mt-4">
                     {
                         activeContent == "dashboard" && <Dashboard />
                     }
                     {
                         activeContent == "kanban" && <h1>Kanban</h1>
+                    }
+                    {
+                        activeContent == "users" && <Users />
                     }
                     {/* similary like this .. */}
                 </div>

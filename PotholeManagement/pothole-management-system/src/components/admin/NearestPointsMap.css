@@ -1,0 +1,21 @@
+.blinking-icon {
+    position: absolute;
+    top: 20px; /* Adjust to position it in the corner */
+    right: 20px; /* Adjust to position it in the corner */
+    font-size: 40px; /* Adjust size as needed */
+    animation: blink 1s infinite; /* Blinking effect */
+}
+
+.red {
+    color: red; /* Color of the icon when alert is triggered */
+}
+
+.green {
+    color: green; /* Color of the icon when no alert is active */
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}

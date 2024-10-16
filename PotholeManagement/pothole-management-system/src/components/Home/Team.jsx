@@ -1,6 +1,9 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Team() {
+    const navigate = useNavigate();
+
     return (
         <div className='p-4 lg:p-14'>
             <ol className="items-center sm:flex">
@@ -14,9 +17,18 @@ export default function Team() {
                         <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                     </div>
                     <div className="mt-3 sm:pe-8">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3>
-                        <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Released on December 2, 2021</time>
-                        <p className="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p>
+
+                        <div className="mt-4">
+                            <button
+                                onClick={() => navigate('/pothole/all/point')}
+                                className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-500 transition duration-300 ease-in-out"
+                            >
+                                Explore Pothole Points
+                            </button>
+                            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                Discover and report potholes in your area using our interactive map.
+                            </p>
+                        </div>
                     </div>
                 </li>
                 <li className="relative mb-6 sm:mb-0">
@@ -29,9 +41,18 @@ export default function Team() {
                         <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                     </div>
                     <div className="mt-3 sm:pe-8">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.2.0</h3>
-                        <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Released on December 23, 2021</time>
-                        <p className="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p>
+
+                        <div className="mt-4">
+                            <button
+                                onClick={() => navigate('/pothole/nearest/point')}
+                                className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-500 transition duration-300 ease-in-out"
+                            >
+                                Nearest Pothole
+                            </button>
+                            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                Quickly find the nearest reported pothole to your location.
+                            </p>
+                        </div>
                     </div>
                 </li>
                 <li className="relative mb-6 sm:mb-0">
@@ -44,12 +65,21 @@ export default function Team() {
                         <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                     </div>
                     <div className="mt-3 sm:pe-8">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.3.0</h3>
-                        <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Released on January 5, 2022</time>
-                        <p className="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p>
+
+                        <div className="mt-4">
+                            <button
+                                onClick={() => navigate('/animation')}
+                                className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-500 transition duration-300 ease-in-out"
+                            >
+                                Animation
+                            </button>
+                            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                Explore dynamic animations to enhance your user interface.
+                            </p>
+                        </div>
                     </div>
                 </li>
             </ol>
         </div>
-    )
+    );
 }

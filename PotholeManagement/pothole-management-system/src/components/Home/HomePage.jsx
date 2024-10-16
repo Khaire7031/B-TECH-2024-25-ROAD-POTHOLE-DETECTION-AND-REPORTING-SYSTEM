@@ -59,7 +59,7 @@ export default function HomePage() {
                 </div>
                 <div className="mt-8">
                     <Team />
-                    <Data />
+                    {/* <Data /> */}
                 </div>
 
                 <div className='w-full'>

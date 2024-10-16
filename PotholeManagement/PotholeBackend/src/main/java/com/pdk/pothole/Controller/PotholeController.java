@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,8 @@ import com.pdk.pothole.Entity.Pothole;
 import com.pdk.pothole.Entity.User;
 
 import java.util.List;
+import java.util.Map;
+
 import com.pdk.pothole.Service.PotholeService;
 import com.pdk.pothole.Service.UserService;
 
@@ -55,20 +58,41 @@ public class PotholeController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
+    // Original Method
     @PostMapping("/report-pothole")
     public ResponseEntity<Response> submitPothole(
             @RequestParam("image") MultipartFile image,
             @RequestParam("location") String location, // Expecting a JSON string
-            @RequestParam("userId") String userId) throws JsonMappingException, JsonProcessingException {
+            @RequestParam("userId") String userId) throws java.io.IOException {
 
         // Parse the JSON location string into a Location object
         Location parsedLocation = parseLocation(location);
-        PotholeReportRequest request = new PotholeReportRequest(image, parsedLocation, userId);
+        PotholeReportRequest request = new PotholeReportRequest(image,
+                parsedLocation, userId);
 
         Response response = potholeService.addPotholeByUser(request);
 
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
+
+    // Testing Method
+    // @PostMapping("/report-pothole")
+    // public ResponseEntity<Response> submitPothole(
+    // @RequestParam("image") MultipartFile image,
+    // @RequestParam("location") String location, // Expecting a JSON string
+    // @RequestParam("userId") String userId,
+    // @RequestParam("potholeCount") Integer potholeCount) throws
+    // java.io.IOException {
+
+    // // Parse the JSON location string into a Location object
+    // Location parsedLocation = parseLocation(location);
+    // PotholeReportRequest request = new PotholeReportRequest(image,
+    // parsedLocation, userId);
+
+    // Response response = potholeService.addPotholeByUser(request, potholeCount);
+
+    // return ResponseEntity.status(response.getStatusCode()).body(response);
+    // }
 
     private Location parseLocation(String locationString) throws JsonMappingException, JsonProcessingException {
         // Use ObjectMapper from Jackson to deserialize JSON to Location
@@ -87,18 +111,13 @@ public class PotholeController {
         return ResponseEntity.status(200).body(potholesList);
     }
 
-    @GetMapping("/flask-status")
-    public ResponseEntity<String> getFlaskStatus() {
-        String statusMessage = potholeService.getFlaskStatus();
-        return ResponseEntity.ok(statusMessage);
+    @GetMapping("/all/users")
+    public ResponseEntity<List<User>> getFlaskStatus() {
+        List<User> userList = userService.getAllUsers();
+        return ResponseEntity.status(200).body(userList);
     }
 
     // For Practice Purpose to add Multiple Pothole at same time
-    @PostMapping("/add_pothole")
-    public ResponseEntity<Response> addPotholeList(@RequestBody List<PotholeDto> potholes) {
-        Response response = potholeService.addPotholeList(potholes);
-        return ResponseEntity.status(response.getStatusCode()).body(response);
-    }
 
     @GetMapping("/all/user")
     public ResponseEntity<List<User>> getAllUser() {
@@ -106,15 +125,16 @@ public class PotholeController {
         return ResponseEntity.status(200).body(userList);
     }
 
-    @DeleteMapping("/delete/{potholeId}")
+    @PostMapping("/delete/{potholeId}")
     public ResponseEntity<Response> deletePothole(@PathVariable("potholeId") long potholeId) {
         Response response = potholeService.deletePothole(potholeId);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @PostMapping("/update-status/{potholeId}")
-    public ResponseEntity<Response> updatePotholeStatus(@PathVariable("potholeId") long potholeId,
-            @RequestParam String status) {
+    public ResponseEntity<Response> updatePotholeStatus(
+            @PathVariable("potholeId") Long potholeId,
+            @RequestBody String status) {
         Response response = potholeService.updateStatus(potholeId, status);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }

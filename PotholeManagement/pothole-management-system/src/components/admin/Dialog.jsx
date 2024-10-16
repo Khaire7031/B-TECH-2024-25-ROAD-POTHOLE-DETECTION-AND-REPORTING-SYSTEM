@@ -10,9 +10,10 @@ export default function Dialog({ pothole, onClose, onEdit, onDelete }) {
 
     const handleUpdateStatus = async () => {
         try {
-            await ApiService.updatePotholeStatus(pothole.id, { status });
-            alert('Pothole status updated successfully!');
+            const response = await ApiService.updatePotholeStatus(pothole.potholeId, status);
+            console.log('Pothole status updated successfully:', response);
             onEdit();
+            location.reload();
         } catch (error) {
             console.error('Error updating status:', error);
             alert('Failed to update pothole status. Please try again.');
@@ -21,19 +22,20 @@ export default function Dialog({ pothole, onClose, onEdit, onDelete }) {
 
     const handleDelete = async () => {
         try {
-            await ApiService.deletePothole(pothole.id);
+            await ApiService.deletePothole(pothole.potholeId);
             alert('Pothole deleted successfully!');
-            onDelete();
+            location.reload();
         } catch (error) {
             console.error('Error deleting pothole:', error);
             alert('Failed to delete pothole. Please try again.');
         }
     };
 
-    // Navigate to the PotholePointMap with the pothole's location
+
     const handleViewOnMap = () => {
         navigate('/pothole/point', { state: { latitude: pothole.latitude, longitude: pothole.longitude } });
     };
+
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2">
@@ -48,7 +50,7 @@ export default function Dialog({ pothole, onClose, onEdit, onDelete }) {
 
                 <div className="p-2 lg:p-5">
                     <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                        Pothole Details (ID: {pothole.id})
+                        Pothole Details (ID : {pothole.potholeId})
                     </h2>
 
                     <img
@@ -58,22 +60,22 @@ export default function Dialog({ pothole, onClose, onEdit, onDelete }) {
                     />
 
                     <p className="text-sm sm:text-base text-gray-700 dark:text-gray-400">
-                        <strong>City:</strong> {pothole.city || "Pune"}
+                        <strong>City :</strong> {pothole.city || "Pune"}
                     </p>
                     <p className="text-sm sm:text-base text-gray-700 dark:text-gray-400">
-                        <strong>No. of Potholes:</strong> {pothole.quantity || 3}
+                        <strong>No. of Potholes :</strong> {pothole.potholeCount || 0}
                     </p>
                     <p className="text-sm sm:text-base text-gray-700 dark:text-gray-400">
-                        <strong>Status:</strong>
+                        <strong>Status :</strong>
                         <select
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
                             className="border rounded p-1 ml-2"
                         >
-                            <option value="Reported">Reported</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Resolved">Resolved</option>
-                            <option value="Closed">Closed</option>
+                            <option value="REPORTED">REPORTED</option>
+                            <option value="UNDER_REVIEW">UNDER_REVIEW</option>
+                            <option value="FIXED">FIXED</option>
+                            <option value="IGNORED">IGNORED</option>
                         </select>
                         <button
                             onClick={handleUpdateStatus}
@@ -83,13 +85,16 @@ export default function Dialog({ pothole, onClose, onEdit, onDelete }) {
                         </button>
                     </p>
                     <p className="text-sm sm:text-base text-gray-700 dark:text-gray-400">
-                        <strong>Reported Date:</strong> {new Date(pothole.reportedDate).toLocaleDateString() || 'N/A'}
+                        <strong>Reported Date :</strong> {new Date(pothole.reportedDate).toLocaleDateString() || 'N/A'}
                     </p>
+                    {/* <p className="text-sm sm:text-base text-gray-700 dark:text-gray-400">
+                        <strong>Late Updated on :</strong> {new Date(pothole.updatedDate).toLocaleDateString() || 'N/A'}
+                    </p> */}
 
                     <p className="text-sm sm:text-base text-gray-700 dark:text-gray-400">
-                        <strong>Reported By:</strong> {pothole.user.name}
+                        <strong>Reported By :</strong> {pothole.user.name}
                         <br />
-                        <strong>Email:</strong> {pothole.user.email}
+                        <strong>Email :</strong> {pothole.user.email}
                     </p>
 
                     {/* View on Map button to navigate to /pothole/point */}

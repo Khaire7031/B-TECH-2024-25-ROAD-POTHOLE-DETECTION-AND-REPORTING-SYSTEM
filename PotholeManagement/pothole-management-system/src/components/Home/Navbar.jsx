@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import mapImage from '../../assets/Map.png';
 import logoutImage from '../../assets/Logout.png'; // Import your logout image here
+import login from '../../assets/images/Login.png'; // Import your logout image here
 import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
@@ -67,7 +68,7 @@ export default function Navbar() {
                             <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
                         </li>
                         <li>
-                            <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                            <a href="/contact" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
                         </li>
                         <li>
                             <a href="/map/search" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Map</a>
@@ -82,8 +83,9 @@ export default function Navbar() {
                             <button
                                 onClick={handleLogout}
                                 className="flex items-center space-x-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white">
-                                <img src={logoutImage} className="h-6 w-6" alt="Logout Icon" />
-                                <span>{isLogin ? 'Logout' : 'Login'}</span>
+                                {/* <img src={logoutImage} className="h-6 w-6" alt="Logout Icon" /> */}
+                                {isLogin ? <img src={logoutImage} className="h-8 w-8" alt="Logout Icon" /> : <img src={login} className="h-7 w-7" alt="Login" />}
+                                {/* <span>{isLogin ? 'Logout' : 'Login'}</span> */}
                             </button>
                         </li>
                     </ul>
