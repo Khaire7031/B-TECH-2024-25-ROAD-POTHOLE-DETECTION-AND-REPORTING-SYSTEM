@@ -29,6 +29,11 @@ The **Road Pothole Detection and Navigation System** is an innovative solution d
 - AWS RDS (Managed database service for MySQL)  
 - AWS Amplify (for hosting the frontend)
 
+**Machine Learning:**  
+- **Convolutional Neural Networks (CNN):** Used for image classification and feature extraction.  
+- **YOLO (You Only Look Once):** Real-time object detection algorithm used for detecting objects in images and videos.  
+- **Flask:** A lightweight Python web framework used for deploying machine learning models.
+
 **Version Control:**  
 - Git, GitHub
 
@@ -36,6 +41,7 @@ The **Road Pothole Detection and Navigation System** is an innovative solution d
 - Postman (for API testing)  
 - Vite (for bundling)  
 - ESLint (for linting)
+
 
 
 
