@@ -102,14 +102,14 @@ Use Vs-Code To Start The server
 | Screenshot | Description |
 |------------|-------------|
 | ![Screenshot (228)](https://github.com/user-attachments/assets/9c36b526-727b-44ad-b9fe-49eff17b6936) | Home Page |
-| ![Screenshot (229)](https://github.com/user-attachments/assets/7e4a716a-ce31-4b8a-a276-857c694ee6a2) | Screenshot 1 |
-| ![Screenshot (230)](https://github.com/user-attachments/assets/a31e8495-02c2-4793-8bce-a5276c7921a3) | Screenshot 2 |
-| ![Screenshot (231)](https://github.com/user-attachments/assets/2d75f837-8cdd-4da9-a82a-0446bec1b60d) | Screenshot 3 |
-| ![Screenshot (232)](https://github.com/user-attachments/assets/b7e3d4a1-7601-4a1d-9301-49d112bb57f8) | Screenshot 4 |
-| ![Screenshot (238)](https://github.com/user-attachments/assets/495501c9-93f3-45bb-ba91-81b45ebc7c3c) | Screenshot 5 |
-| ![Screenshot (243)](https://github.com/user-attachments/assets/3edf0f76-332e-4089-b5ad-9e606c1aca53) | Screenshot 6 |
-| ![Screenshot (244)](https://github.com/user-attachments/assets/6624dcf1-6315-47c3-b27b-06a45752b207) | Screenshot 7 |
-| ![Screenshot (245)](https://github.com/user-attachments/assets/3b6254ba-6295-48e3-ad77-e75c26e104a8) | Screenshot 8 |
+| ![Screenshot (229)](https://github.com/user-attachments/assets/7e4a716a-ce31-4b8a-a276-857c694ee6a2) | Road Sgements |
+| ![Screenshot (230)](https://github.com/user-attachments/assets/a31e8495-02c2-4793-8bce-a5276c7921a3) | All Pothole Locations |
+| ![Screenshot (231)](https://github.com/user-attachments/assets/2d75f837-8cdd-4da9-a82a-0446bec1b60d) | No Pothole are in 50M range that's Why it is in color Green |
+| ![Screenshot (232)](https://github.com/user-attachments/assets/b7e3d4a1-7601-4a1d-9301-49d112bb57f8) | Pothole is in 50M range that's Why it is in color Red |
+| ![Screenshot (238)](https://github.com/user-attachments/assets/495501c9-93f3-45bb-ba91-81b45ebc7c3c) | While Travelling |
+| ![Screenshot (243)](https://github.com/user-attachments/assets/3edf0f76-332e-4089-b5ad-9e606c1aca53) | Admin Dashboard |
+| ![Screenshot (244)](https://github.com/user-attachments/assets/6624dcf1-6315-47c3-b27b-06a45752b207) | Pothole Data |
+| ![Screenshot (245)](https://github.com/user-attachments/assets/3b6254ba-6295-48e3-ad77-e75c26e104a8) | Single Pothole Location When we click on "View On Map" |
 
 
 
