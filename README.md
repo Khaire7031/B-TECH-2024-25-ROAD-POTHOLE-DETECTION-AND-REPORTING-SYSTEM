@@ -1,3 +1,4 @@
+
 # Road Pothole Detection and Navigation System
 
 The **Road Pothole Detection and Navigation System** is an innovative solution designed to enhance road safety and streamline maintenance by detecting potholes in real time and integrating the findings into navigation platforms.
@@ -9,22 +10,153 @@ The **Road Pothole Detection and Navigation System** is an innovative solution d
 - **Data Analytics**: Provides insights for road maintenance and management.
 - **Cloud Integration**: Leverages AWS services for scalability and reliability.
 
-## Prerequisites
 
-- **Java 17** or higher  
-- **React**: HTML, CSS, JavaScript for the frontend  
-- **Python 3.9+**: Flask for machine learning and backend integration  
-- **MySQL**: For data storage and management  
-- **AWS**: Includes the following services:  
-  - **AWS Elastic Beanstalk**: For backend deployment  
-  - **AWS RDS**: Managed database service for MySQL  
-  - **AWS Amplify**: For hosting the frontend  
 
-## Installation
+## Tech Stack
 
-### Steps
+**Client:**  
+- React (HTML, CSS, JavaScript)
+
+**Server:**  
+- Java 17 or higher  
+- Python 3.9+ (Flask for machine learning and backend integration)
+
+**Database:**  
+- MySQL (for data storage and management)
+
+**Cloud Services:**  
+- AWS Elastic Beanstalk (for backend deployment)  
+- AWS RDS (Managed database service for MySQL)  
+- AWS Amplify (for hosting the frontend)
+
+**Version Control:**  
+- Git, GitHub
+
+**Other Tools:**  
+- Postman (for API testing)  
+- Vite (for bundling)  
+- ESLint (for linting)
+
+
+
+## Deployment
+### React
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/road-pothole-detection.git
-   cd road-pothole-detection
+   git clone https://github.com/Khaire7031/B-Tech-2024-Pothole
+   cd PotholeManagement
+
+2. Navigate to the pothole-management-system folder:
+
+```bash
+cd pothole-management-system
+```
+
+3. Install the required dependencies:
+
+```bash
+npm install
+```
+4. Start the React development server:
+```bash
+npm run dev
+```
+5. Access the application in your browser at:
+```bash
+Local: http://localhost:5173/
+Network: Use the provided network URLs, e.g., http://192.168.0.105:5173/.
+```
+4. Start the React development server:
+```bash
+  npm run dev
+```
+
+### Spring Boot
+
+2. Navigate to the PotholeBackend folder:
+
+```bash
+cd PotholeBackend
+```
+
+3.Configure the application properties:
+
+```bash
+Open src/main/resources/application.properties
+Update the database connection details (e.g., MySQL)
+
+spring.datasource.url=jdbc:mysql://localhost:3306/pothole_db
+spring.datasource.username=your-username
+spring.datasource.password=your-password
+spring.jpa.hibernate.ddl-auto=update
+
+```
+4. Build the project:
+```bash
+Use Vs-Code To Start The server
+```
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+
+## Demo
+
+Insert gif or link to demo
+
+
+## 🚀 About Me
+I'm a full stack developer at Vishwakarma Institute of Technology, Pune currently pursuing B. Tech in Information technology. Being a computer passionate, find myself highly interested in domains of Web development, Application development. 
+
+In addition, I have worked on projects involving machine-learning as well as web development and I love to exploring various fields through projects.
+I have faith in "Consistently Learning" and always keep a learning attitude towards new thing/technologies. My aim is to enhance the skills I learned so far and always be a faithful to my work.
+## 🔗 Links
+[![Portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://khairepranav.onrender.com/)
+[![LinkedIn](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pranav-khaire-java-developer/)
+[![Instagram](https://img.shields.io/badge/instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/pranav_khaire_70/)
+[![GitHub](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Khaire7031)
+[![Resume](https://img.shields.io/badge/resume-000000?style=for-the-badge&logo=resume&logoColor=white)](https://example.com/your-resume-link)  
+
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+
+## Badges
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+[![Spring Boot](https://img.shields.io/badge/spring%20boot-2.7.0-brightgreen.svg)](https://spring.io/projects/spring-boot)  [![MySQL](https://img.shields.io/badge/mysql-%3E=8.0-blue.svg)](https://www.mysql.com/)  [![Deployed on AWS](https://img.shields.io/badge/deployed-AWS-orange.svg)](https://aws.amazon.com/)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Khaire7031/B-Tech-2024-Pothole/pulls)  [![Made with Love](https://img.shields.io/badge/made%20with-love-red.svg)](https://github.com/Khaire7031/)  
+### Acknowledgements
+
+- This project was inspired by the growing need for improved road safety and maintenance solutions.
+- Special thanks to the open-source communities of Spring Boot, React, MySQL, and AWS for their valuable contributions to the development process.
+- Thanks to all contributors and collaborators for their support in building and enhancing this system.
+
+### References
+
+- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [MySQL Documentation](https://dev.mysql.com/doc/)
+- [AWS Documentation](https://aws.amazon.com/documentation/)
+## FAQ
+
+#### What is the purpose of this pothole detection system?
+
+The purpose of this pothole detection system is to enhance road safety by automatically detecting potholes in real-time, providing timely information to drivers and helping authorities prioritize road maintenance. This system aims to reduce accidents caused by potholes and improve overall road quality.
+
+#### How is this system really helpful?
+
+This system is helpful by improving road safety and reducing the time spent on road repairs. It helps drivers avoid dangerous potholes, reduces vehicle damage, and enables faster and more accurate identification of potholes for road maintenance authorities. Additionally, it can be integrated with navigation apps to provide real-time alerts for safer driving.
+
+
+
+## Feedback
+
+If you have any feedback, please reach out to me at pranavkhaire28@gmail.com
+
