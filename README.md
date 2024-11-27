@@ -1,7 +1,7 @@
 
-# Road Pothole Detection and Navigation System
+# Road Pothole Detection and Reporting System
 
-The **Road Pothole Detection and Navigation System** is an innovative solution designed to enhance road safety and streamline maintenance by detecting potholes in real time and integrating the findings into navigation platforms.
+The **Road Pothole Detection and Reporting System** is an innovative solution designed to enhance road safety and streamline maintenance by detecting potholes in real time and integrating the findings into navigation platforms.
 
 ## Features
 
