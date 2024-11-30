@@ -71,10 +71,10 @@ export default function Team() {
                                 onClick={() => navigate('/animation')}
                                 className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-500 transition duration-300 ease-in-out"
                             >
-                                Animation
+                                VIIT - VIT
                             </button>
                             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                                Explore dynamic animations to enhance your user interface.
+                                Explore dynamic VIIT - VIT road to enhance your user interface.
                             </p>
                         </div>
                     </div>

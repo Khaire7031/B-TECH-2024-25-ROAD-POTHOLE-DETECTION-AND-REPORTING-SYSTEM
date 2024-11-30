@@ -30,7 +30,7 @@ export default function Footer() {
                                 transition={{ duration: 0.5, delay: index * 0.2 }}
                             >
                                 <a
-                                    href="#"
+                                    href="/contact"
                                     className="hover:text-blue-200 transition-colors duration-200"
                                 >
                                     {text}

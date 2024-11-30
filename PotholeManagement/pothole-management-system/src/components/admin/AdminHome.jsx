@@ -40,7 +40,7 @@ export default function AdminHome() {
                                 <span className="ms-3">Dashboard</span>
                             </button>
                         </li>
-                        <li>
+                        {/* <li>
                             <button
                                 onClick={() => handleSidebarClick('kanban')}
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
@@ -49,6 +49,14 @@ export default function AdminHome() {
                                 <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
                                     Pro
                                 </span>
+                            </button>
+                        </li> */}
+                        <li>
+                            <button
+                                onClick={() => handleSidebarClick('users')}
+                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
+                            >
+                                <span className="flex-1 ms-3 whitespace-nowrap">Users</span>
                             </button>
                         </li>
                         <li>
@@ -62,22 +70,15 @@ export default function AdminHome() {
                                 </span>
                             </button>
                         </li>
-                        <li>
-                            <button
-                                onClick={() => handleSidebarClick('users')}
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
-                            >
-                                <span className="flex-1 ms-3 whitespace-nowrap">Users</span>
-                            </button>
-                        </li>
-                        <li>
+
+                        {/* <li>
                             <button
                                 onClick={() => handleSidebarClick('products')}
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group w-full text-left"
                             >
                                 <span className="flex-1 ms-3 whitespace-nowrap">Products</span>
                             </button>
-                        </li>
+                        </li> */}
                         <li>
                             <button
                                 onClick={() => handleSidebarClick('sign-in')}

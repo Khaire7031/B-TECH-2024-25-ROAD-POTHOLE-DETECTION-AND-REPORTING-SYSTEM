@@ -30,7 +30,7 @@ export default function HomePage() {
             {/* Centered Content */}
             <div className="flex flex-col items-center text-center">
                 <h4 className="text-xl pt-3 sm:text-2xl md:text-3xl font-bold font-roboto">
-                    Pothole Management and Reporting System
+                    Pothole Management and Navigation System
                 </h4>
                 <p className="text-lg sm:text-xl text-gray-500 mt-2">
                     True navigation begins in the human heart.

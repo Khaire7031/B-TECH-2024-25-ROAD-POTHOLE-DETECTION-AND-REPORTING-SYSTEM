@@ -10,10 +10,10 @@ export default function Dashboard() {
     const reported = totalPotholes - inProgress - filled; // Remaining = 500
 
     return (
-        <div className="p-4 flex flex-col gap-4">
+        <div className="p-4 flex flex-col gap-1">
             {/* Pie Graph */}
             <div>
-                <Graph reported={reported} inProgress={inProgress} filled={filled} />
+                {/* <Graph reported={reported} inProgress={inProgress} filled={filled} /> */}
             </div>
 
             {/* Title and Button */}
